@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">CarteiraRU</string>
+    <string name="et_dica_usuario">Usuário</string>
+    <string name="et_dica_senha">Senha</string>
+    <string name="cb_salvar_senha">Salvar senha?</string>
+    <string name="bt_esqueceu_senha">Esqueceu a senha?</string>
+    <string name="bt_bemvindo_login">Avançar</string>
+    <string name="bt_login_pagina_inicial">Entrar</string>
 </resources>

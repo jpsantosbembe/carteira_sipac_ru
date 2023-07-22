@@ -15,7 +15,7 @@ public class BemVindoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bem_vindo);
 
 
-        Button button = findViewById(R.id.button);
+        Button button = findViewById(R.id.btBemVindo_Entrar);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
