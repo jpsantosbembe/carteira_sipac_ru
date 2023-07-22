@@ -31,6 +31,7 @@
             android:padding="10dp">
 
             <!-- Title, secondary and supporting text -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,6 +52,20 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip"
+        style="@style/Widget.Material3.Chip.Suggestion.Elevated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="false"
+        android:checked="true"
+        android:enabled="true"
+        android:text="Total de refeições: 5"
+        app:checkedIconEnabled="false"
+        app:layout_constraintBottom_toTopOf="@+id/card_qr_code"
+        app:layout_constraintEnd_toEndOf="@+id/card_qr_code"
+        app:layout_constraintStart_toStartOf="@+id/card_qr_code" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_qr_code"
