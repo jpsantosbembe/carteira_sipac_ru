@@ -1,17 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/item_1"
+        android:id="@+id/qrcode"
         android:enabled="true"
         android:icon="@drawable/baseline_qr_code_24"
         android:title="QRCode"/>
     <item
-        android:id="@+id/item_2"
+        android:id="@+id/cardapio"
         android:enabled="true"
         android:icon="@drawable/baseline_restaurant_menu_24"
         android:title="Cardápio"/>
     <item
-        android:id="@+id/item_3"
+        android:id="@+id/perfil"
         android:enabled="true"
         android:icon="@drawable/baseline_account_circle_24"
-        android:title="Conta"/>
+        android:title="Perfil"/>
 </menu>

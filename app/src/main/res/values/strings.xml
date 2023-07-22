@@ -6,4 +6,6 @@
     <string name="bt_esqueceu_senha">Esqueceu a senha?</string>
     <string name="bt_bemvindo_login">Avançar</string>
     <string name="bt_login_pagina_inicial">Entrar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
