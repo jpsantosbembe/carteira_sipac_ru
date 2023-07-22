@@ -13,8 +13,12 @@
         android:theme="@style/Theme.CarteiraRU"
         tools:targetApi="31">
         <activity
-            android:name=".LoginActivity"
+            android:name=".PaginaInicialActivity"
             android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".BemVindoActivity"
             android:exported="false" />
