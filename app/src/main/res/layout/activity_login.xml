@@ -4,23 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#014D57"
     tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="412dp"
+        android:layout_height="817dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/login_back" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="344dp"
+        android:layout_height="80dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="304dp"
         android:layout_marginEnd="32dp"
         app:errorEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_border_rounded"
             android:hint="@string/et_dica_usuario"
             android:inputType="text|textUri|textAutoComplete"
             android:singleLine="true" />
@@ -28,8 +42,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="348dp"
+        android:layout_height="81dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
@@ -39,6 +53,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/btn_border_rounded"
             android:hint="@string/et_dica_senha"
             android:inputType="text|textPassword|textNoSuggestions"
             android:singleLine="true" />
@@ -50,6 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bt_esqueceu_senha"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
@@ -58,6 +74,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:backgroundTint="#069CA7"
         android:text="@string/bt_login_pagina_inicial"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
@@ -65,11 +82,27 @@
 
     <CheckBox
         android:id="@+id/checkBox"
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#FFFFFF"
+        android:buttonTint="#FFFFFF"
         android:checked="true"
         android:text="@string/cb_salvar_senha"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/button2"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toTopOf="@+id/button2" />
+        app:layout_constraintTop_toTopOf="@+id/button2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="205dp"
+        android:layout_height="160dp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/centro_academico_logo" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
