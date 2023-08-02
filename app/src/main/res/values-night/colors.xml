@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="login_back_losango">#100D18</color>
+    <color name="login_back">#1E293B</color>
+    <color name="logo_cacc_backcolor">#FFFFFF</color>
+    <color name="botao_cor">#1E293B</color>
+    <color name="texto_cor">#FFFFFF</color>
+
+
+</resources>

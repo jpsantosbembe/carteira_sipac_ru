@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="login_back_losango">#F7F7F7</color>
+    <color name="login_back">#ffffff</color>
+    <color name="logo_cacc_backcolor">#100D18</color>
+    <color name="botao_cor">#100D18</color>
+    <color name="texto_cor">#1E293B</color>
+
 </resources>
