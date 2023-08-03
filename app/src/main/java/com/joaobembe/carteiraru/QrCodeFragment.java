@@ -1,5 +1,6 @@
 package com.joaobembe.carteiraru;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.joaobembe.carteiraru.controller.ControladorUsuario;
+import com.joaobembe.carteiraru.model.Usuario;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import org.jetbrains.annotations.Contract;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +70,22 @@ public class QrCodeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Usuario usuario = new ControladorUsuario().obterUsuario();
+        View rootView = inflater.inflate(R.layout.fragment_qr_code, container, false);
+        ImageView imageView = rootView.findViewById(R.id.ivQRCode);
+
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(usuario.getCarteira().getStrQRCode(), BarcodeFormat.QR_CODE, 400, 400);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            imageView.setImageBitmap(bitmap);
+
+        } catch (WriterException e) {
+            throw new RuntimeException(e);
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_qr_code, container, false);
+        return rootView;
     }
 }

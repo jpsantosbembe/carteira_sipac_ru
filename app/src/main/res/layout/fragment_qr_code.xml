@@ -8,80 +8,20 @@
     android:outlineProvider="none"
     tools:context=".QrCodeFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
-        style="?attr/materialCardViewFilledStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        app:cardElevation="5dp"
-        app:cardMaxElevation="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <!-- Title, secondary and supporting text -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Olá, João"
-                android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/baseline_account_circle_24" />
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.chip.Chip
-        android:id="@+id/chip"
-        style="@style/Widget.Material3.Chip.Suggestion.Elevated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checkable="false"
-        android:checked="true"
-        android:enabled="true"
-        android:text="Total de refeições: 5"
-        app:checkedIconEnabled="false"
-        app:layout_constraintBottom_toTopOf="@+id/card_qr_code"
-        app:layout_constraintEnd_toEndOf="@+id/card_qr_code"
-        app:layout_constraintStart_toStartOf="@+id/card_qr_code" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_qr_code"
         style="?attr/materialCardViewFilledStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="100dp"
         android:clickable="true"
-        app:layout_constraintDimensionRatio="1:1"
         app:cardElevation="5dp"
         app:cardMaxElevation="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/card"
-        app:layout_constraintStart_toStartOf="@+id/card"
-        app:layout_constraintTop_toBottomOf="@+id/card">
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,6 +33,7 @@
 
 
             <ImageView
+                android:id="@+id/ivQRCode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitCenter"

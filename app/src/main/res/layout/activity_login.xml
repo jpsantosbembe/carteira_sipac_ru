@@ -7,7 +7,7 @@
     tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivBG"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
@@ -17,8 +17,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/login_back_light" />
 
+    <ImageView
+        android:id="@+id/ivCaccLogo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cacc_logo" />
+
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvCredSig"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -32,18 +42,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/roboto"
         android:text="Usuario:"
         android:textColor="@color/texto_cor"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="@+id/tvCredSig"
+        app:layout_constraintTop_toBottomOf="@+id/tvCredSig" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/etUsuario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -55,32 +65,32 @@
         android:textColorHighlight="#D8D8D8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUsuario" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
         android:text="Senha:"
         android:textColor="@color/texto_cor"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
+        app:layout_constraintStart_toStartOf="@+id/etUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/etUsuario" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/etSenha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:fontFamily="@font/roboto"
-        android:inputType="text"
+        android:inputType="text|textPassword"
         android:textColor="@color/texto_cor"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText"
-        app:layout_constraintStart_toStartOf="@+id/editTextText"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintEnd_toEndOf="@+id/etUsuario"
+        app:layout_constraintStart_toStartOf="@+id/etUsuario"
+        app:layout_constraintTop_toBottomOf="@+id/tvSenha" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/cbSalvarSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
@@ -88,40 +98,41 @@
         android:fontFamily="@font/roboto"
         android:text="@string/cb_salvar_senha"
         android:textColor="@color/texto_cor"
-        app:layout_constraintStart_toStartOf="@+id/editTextText2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+        app:layout_constraintStart_toStartOf="@+id/etSenha"
+        app:layout_constraintTop_toBottomOf="@+id/etSenha" />
 
     <Button
-        android:id="@+id/button5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
-        android:text="Button"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextText2"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cacc_logo" />
-
-    <Button
-        android:id="@+id/button7"
+        android:id="@+id/btEsqueceuSenha"
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bt_esqueceu_senha"
         android:textColor="@color/texto_cor"
         app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/editTextText2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
+        app:layout_constraintEnd_toEndOf="@+id/etSenha"
+        app:layout_constraintTop_toBottomOf="@+id/etSenha" />
+
+    <Button
+        android:id="@+id/btEntrar_PaginaInicial"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="@string/bt_login_pagina_inicial"
+        android:visibility="visible"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/etSenha"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/etSenha"
+        app:layout_constraintTop_toBottomOf="@+id/btEsqueceuSenha" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/btEsqueceuSenha"
+        app:layout_constraintStart_toStartOf="@+id/cbSalvarSenha"
+        app:layout_constraintTop_toBottomOf="@+id/btEsqueceuSenha" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
