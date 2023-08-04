@@ -28,4 +28,16 @@
 
     <string name="descricao_cacc_logo">Logo do centro acadêmico de ciência da computação</string>
     <string name="descricao_login_imagem_fundo">Fundo de tela</string>
+    <string name="qrcode">QR Code RU</string>
+
+    <string name="bt_sair">Sair</string>
+    <string name="tv_historico">Histórico de Recargas e de Utilizações:</string>
+    <string name="bt_em_breve">Em breve</string>
+
+    <string name="segunda">Segunda</string>
+    <string name="terca">Terça</string>
+    <string name="quarta">Quarta</string>
+    <string name="quinta">Quinta</string>
+    <string name="sexta">Sexta</string>
+
 </resources>
