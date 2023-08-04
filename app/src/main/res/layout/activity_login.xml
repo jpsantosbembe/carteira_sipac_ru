@@ -10,6 +10,7 @@
         android:id="@+id/ivBG"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/descricao_login_imagem_fundo"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,6 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:contentDescription="@string/descricao_cacc_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +36,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="32dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="Credenciais do SIG"
+        android:text="@string/tv_credencias_sig_login"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/texto_cor"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,9 +47,10 @@
         android:id="@+id/tvUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/tv_usuario_login"
         android:fontFamily="@font/roboto"
-        android:text="Usuario:"
+        android:text="@string/tv_usuario_login"
         android:textColor="@color/texto_cor"
         app:layout_constraintStart_toStartOf="@+id/tvCredSig"
         app:layout_constraintTop_toBottomOf="@+id/tvCredSig" />
@@ -58,21 +61,27 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
+        android:contentDescription="@string/tv_usuario_login"
         android:ems="10"
         android:fontFamily="@font/roboto"
-        android:inputType="text"
+        android:inputType="text|textEmailAddress"
+        android:labelFor="@id/tvUsuario"
+        android:minHeight="48dp"
         android:textColor="@color/texto_cor"
         android:textColorHighlight="#D8D8D8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsuario" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUsuario"
+        tools:ignore="EditableContentDescCheck,LabelFor,VisualLintTextFieldSize"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/tvSenha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/tv_senha_login"
         android:fontFamily="@font/roboto"
-        android:text="Senha:"
+        android:text="@string/tv_senha_login"
         android:textColor="@color/texto_cor"
         app:layout_constraintStart_toStartOf="@+id/etUsuario"
         app:layout_constraintTop_toBottomOf="@+id/etUsuario" />
@@ -81,13 +90,18 @@
         android:id="@+id/etSenha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/tv_senha_login"
         android:ems="10"
         android:fontFamily="@font/roboto"
         android:inputType="text|textPassword"
+        android:labelFor="@id/tvSenha"
+        android:minHeight="48dp"
         android:textColor="@color/texto_cor"
         app:layout_constraintEnd_toEndOf="@+id/etUsuario"
         app:layout_constraintStart_toStartOf="@+id/etUsuario"
-        app:layout_constraintTop_toBottomOf="@+id/tvSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSenha"
+        tools:ignore="EditableContentDescCheck,LabelFor,VisualLintTextFieldSize"
+        android:autofillHints="" />
 
     <CheckBox
         android:id="@+id/cbSalvarSenha"
@@ -95,8 +109,9 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/roboto"
-        android:text="@string/cb_salvar_senha"
+        android:text="@string/cb_salvar_senha_login"
         android:textColor="@color/texto_cor"
         app:layout_constraintStart_toStartOf="@+id/etSenha"
         app:layout_constraintTop_toBottomOf="@+id/etSenha" />
@@ -106,7 +121,7 @@
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bt_esqueceu_senha"
+        android:text="@string/bt_esqueceu_senha_login"
         android:textColor="@color/texto_cor"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/etSenha"
@@ -123,7 +138,8 @@
         app:layout_constraintEnd_toEndOf="@+id/etSenha"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/etSenha"
-        app:layout_constraintTop_toBottomOf="@+id/btEsqueceuSenha" />
+        app:layout_constraintTop_toBottomOf="@+id/btEsqueceuSenha"
+        tools:ignore="VisualLintButtonSize" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -134,5 +150,17 @@
         app:layout_constraintEnd_toEndOf="@+id/btEsqueceuSenha"
         app:layout_constraintStart_toStartOf="@+id/cbSalvarSenha"
         app:layout_constraintTop_toBottomOf="@+id/btEsqueceuSenha" />
+
+    <TextView
+        android:id="@+id/tvUsuarioSenhaInvalido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_usuario_senha_invalido_login"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/tvUsuario"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCredSig" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

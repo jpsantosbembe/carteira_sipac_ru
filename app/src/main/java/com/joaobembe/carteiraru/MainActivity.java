@@ -1,9 +1,10 @@
 package com.joaobembe.carteiraru;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,10 +13,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        System.out.println("usuario.getPerfil().getNomeCompleto()");
+        Context context = getApplicationContext();
+        String sharedPreferencesFileName = "file";
 
-
-        Intent intent = new Intent(this, BemVindoActivity.class);
-        startActivity(intent);
+        File sharedPreferencesFile = new File(context.getFilesDir().getParent() + "/shared_prefs/" + sharedPreferencesFileName + ".xml");
+        if (sharedPreferencesFile.exists()) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Intent intent = new Intent(MainActivity.this, BemVindoActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

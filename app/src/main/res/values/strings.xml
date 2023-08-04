@@ -1,11 +1,31 @@
 <resources>
     <string name="app_name">CarteiraRU</string>
-    <string name="et_dica_usuario">Usuário</string>
-    <string name="et_dica_senha">Senha</string>
-    <string name="cb_salvar_senha">Salvar senha?</string>
-    <string name="bt_esqueceu_senha">Esqueceu a senha?</string>
+
     <string name="bt_bemvindo_login">Avançar</string>
+
+    <string name="tv_credencias_sig_login">Credenciais do SIG</string>
+    <string name="tv_usuario_senha_invalido_login">Usuário e/ou senha invalidos!</string>
+
+    <string name="tv_usuario_login">Usuário:</string>
+    <string name="tv_senha_login">Senha:</string>
+    <string name="cb_salvar_senha_login">Salvar senha?</string>
+    <string name="bt_esqueceu_senha_login">Esqueceu a senha?</string>
     <string name="bt_login_pagina_inicial">Entrar</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Textos da Pagina Inicial -->
+    <string name="descricao_tv_foto_perfil">Foto de perfil</string>
+    <string name="tv_usuario_pi">Nome do usuario</string>
+    <string name="tv_tipo_vinculo">Vinvulo</string>
+    <string name="tv_codigo_ru">Código RU:\u00A0</string>
+    <string name="tv_codigo_ru_1">Código do RU</string>
+
+    <string name="tv_situacao_ru">Situação:\u00A0</string>
+    <string name="tv_situacao_ru_1">Situação do cadastro</string>
+    <string name="tv_refeicoes_restante_1">Você tem\u00A0</string>
+    <string name="tv_refeicoes_restantes_1">Você têm\u00A0</string>
+    <string name="tv_refeicoes_restante_2">\u00A0refeição restante</string>
+    <string name="tv_refeicoes_restantes_2">\u00A0refeições restantes</string>
+
+    <string name="descricao_cacc_logo">Logo do centro acadêmico de ciência da computação</string>
+    <string name="descricao_login_imagem_fundo">Fundo de tela</string>
 </resources>

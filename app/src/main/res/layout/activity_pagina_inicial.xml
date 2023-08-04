@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:gravity="center">
 
             <!-- Media -->
@@ -40,7 +41,7 @@
                     android:id="@+id/ivFotoPerfil"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:contentDescription=""
+                    android:contentDescription="@string/descricao_tv_foto_perfil"
                     android:scaleType="fitCenter"
                     android:visibility="invisible"
                     app:srcCompat="@drawable/baseline_account_circle_24" />
@@ -61,47 +62,49 @@
                         android:id="@+id/tvNomeUsuario"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Joao Paulo Santos Bembe "
+                        android:text="@string/tv_usuario_pi"
                         android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                     <TextView
                         android:id="@+id/tvTipoDeVinculo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="(Discente)" />
+                        android:text="@string/tv_tipo_vinculo" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Codigo RU: "
+                        android:text="@string/tv_codigo_ru"
                         android:textColor="?android:attr/textColorSecondary" />
 
                     <TextView
                         android:id="@+id/tvCodRu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="666"
+                        android:text="@string/tv_codigo_ru_1"
                         android:textColor="?android:attr/textColorSecondary" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Situação: "
+                        android:text="@string/tv_situacao_ru"
                         android:textColor="?android:attr/textColorSecondary" />
 
                     <TextView
                         android:id="@+id/tvSituacao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ativo"
+                        android:text="@string/tv_situacao_ru_1"
                         android:textColor="?android:attr/textColorSecondary" />
                 </LinearLayout>
                 <LinearLayout
@@ -112,7 +115,7 @@
                         android:id="@+id/tvRefeicoes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Voce têm 5 refeiçoes restantes"
+                        android:text="@string/tv_refeicoes_restante_1"
                         android:textColor="?android:attr/textColorSecondary" />
                 </LinearLayout>
             </LinearLayout>

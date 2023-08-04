@@ -3,8 +3,7 @@ package com.joaobembe.carteiraru;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -30,7 +28,6 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
     CardapioFragment cardapioFragment = new CardapioFragment();
     PerfilFragment perfilFragment = new PerfilFragment();
     TextView tvNomeUsuario;
-
     TextView tvTipoDeVinculo;
     TextView tvCodRu;
     TextView tvSituacao;
@@ -38,13 +35,13 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
     ImageView ivFotoPerfil;
     ProgressBar progressBar;
 
-
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pagina_inicial);
         navigationBarView = findViewById(R.id.bottom_navigation);
-        navigationBarView.setOnItemSelectedListener(this::onNavigationItemSelected);
+        navigationBarView.setOnItemSelectedListener(this);
         navigationBarView.setSelectedItemId(R.id.qrcode);
 
         tvTipoDeVinculo = findViewById(R.id.tvTipoDeVinculo);
@@ -56,9 +53,8 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         progressBar =findViewById(R.id.progressBar2);
 
         Usuario usuario = new ControladorUsuario().obterUsuario();
-
-        tvNomeUsuario.setText(formatarNome(usuario.getPerfil().getNomeCompleto()) + " ");
-        tvTipoDeVinculo.setText("(" + usuario.getPerfil().getTipoDeVinculo() + ")");
+        tvNomeUsuario.setText(formatarNome(usuario.getPerfil().getNomeCompleto()));
+        tvTipoDeVinculo.setText(" (" + usuario.getPerfil().getTipoDeVinculo() + ")");
         tvCodRu.setText(usuario.getCarteira().getCodigo());
         tvSituacao.setText(usuario.getPerfil().getSituacaoDoVinculo());
         Glide.with(this).load(usuario.getPerfil().getURLFoto()).listener(new RequestListener<Drawable>() {
@@ -67,10 +63,8 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
                 progressBar.setVisibility(View.INVISIBLE);
                 ivFotoPerfil.setImageResource(R.drawable.baseline_account_circle_24);
                 ivFotoPerfil.setVisibility(View.VISIBLE);
-
                 return false;
             }
-
             @Override
             public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                 progressBar.setVisibility(View.INVISIBLE);
@@ -79,19 +73,16 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
             }
         }).into(ivFotoPerfil);
 
-        if (usuario.getCarteira().getSaldo() > 1) {
-            tvRefeicoes.setText("Vocẽ têm " + usuario.getCarteira().getSaldo() + " refeições restantes");
+        if (usuario.getCarteira().getSaldo() > 1 || usuario.getCarteira().getSaldo() == 0) {
+            tvRefeicoes.setText(
+                    getResources().getString(R.string.tv_refeicoes_restantes_1) + usuario.getCarteira().getSaldo() + getResources().getString(R.string.tv_refeicoes_restantes_2)
+                    );
         } else {
-            tvRefeicoes.setText("Vocẽ tem " + usuario.getCarteira().getSaldo() + " refeição restante");
-
+            tvRefeicoes.setText(
+                    getResources().getString(R.string.tv_refeicoes_restante_1) + usuario.getCarteira().getSaldo() + getResources().getString(R.string.tv_refeicoes_restante_2)
+            );
         }
-
-
-
-
     }
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.qrcode) {
@@ -117,23 +108,13 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         }
         return false;
     }
-
     public static String formatarNome(String nomeCompleto) {
-        // Divide o nome completo em palavras separadas
         String[] palavras = nomeCompleto.split(" ");
-
-        // Inicializa a variável para armazenar o resultado formatado
         StringBuilder resultado = new StringBuilder();
-
         for (String palavra : palavras) {
-            // Transforma a primeira letra da palavra em maiúscula e o restante em minúscula
             String palavraFormatada = palavra.substring(0, 1).toUpperCase() + palavra.substring(1).toLowerCase();
-
-            // Adiciona a palavra formatada ao resultado
             resultado.append(palavraFormatada).append(" ");
         }
-
-        // Remove o espaço extra no final e retorna o resultado formatado
         return resultado.toString().trim();
     }
 
