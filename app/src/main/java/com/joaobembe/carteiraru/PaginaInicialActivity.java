@@ -57,22 +57,27 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         tvTipoDeVinculo.setText(" (" + usuario.getPerfil().getTipoDeVinculo() + ")");
         tvCodRu.setText(usuario.getCarteira().getCodigo());
         tvSituacao.setText(usuario.getPerfil().getSituacaoDoVinculo());
-        Glide.with(this).load(usuario.getPerfil().getURLFoto()).listener(new RequestListener<Drawable>() {
-            @Override
-            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                progressBar.setVisibility(View.INVISIBLE);
-                ivFotoPerfil.setImageResource(R.drawable.baseline_account_circle_24);
-                ivFotoPerfil.setVisibility(View.VISIBLE);
-                return false;
-            }
-            @Override
-            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                progressBar.setVisibility(View.INVISIBLE);
-                ivFotoPerfil.setVisibility(View.VISIBLE);
-                return false;
-            }
-        }).into(ivFotoPerfil);
-
+        if (usuario.getPerfil().getURLFoto() != null) {
+            Glide.with(this).load(usuario.getPerfil().getURLFoto()).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    ivFotoPerfil.setImageResource(R.drawable.baseline_account_circle_24);
+                    ivFotoPerfil.setVisibility(View.VISIBLE);
+                    return false;
+                }
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    ivFotoPerfil.setVisibility(View.VISIBLE);
+                    return false;
+                }
+            }).into(ivFotoPerfil);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+            ivFotoPerfil.setImageResource(R.drawable.baseline_account_circle_24);
+            ivFotoPerfil.setVisibility(View.VISIBLE);
+        }
         if (usuario.getCarteira().getSaldo() > 1 || usuario.getCarteira().getSaldo() == 0) {
             tvRefeicoes.setText(
                     getResources().getString(R.string.tv_refeicoes_restantes_1) + usuario.getCarteira().getSaldo() + getResources().getString(R.string.tv_refeicoes_restantes_2)

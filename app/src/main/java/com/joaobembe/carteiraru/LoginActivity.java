@@ -75,14 +75,17 @@ public class LoginActivity extends AppCompatActivity {
 
             if (etUsuario.getText().toString().equals("") && etSenha.getText().toString().equals("")) {
                 etUsuario.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(LoginActivity.this, R.drawable.baseline_error_24), null);
+                etSenha.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(LoginActivity.this, R.drawable.baseline_error_24), null);
                 tvUsuarioSenhaInvalido.setText("Informe o usuário e senha!");
                 tvUsuarioSenhaInvalido.setVisibility(View.VISIBLE);
             } else if (etSenha.getText().toString().equals("")){
+                etUsuario.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 etSenha.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(LoginActivity.this, R.drawable.baseline_error_24), null);
                 tvUsuarioSenhaInvalido.setText("Informe a senha!");
                 tvUsuarioSenhaInvalido.setVisibility(View.VISIBLE);
             } else if (etUsuario.getText().toString().equals("")) {
                 etUsuario.setCompoundDrawablesWithIntrinsicBounds(null, null, ContextCompat.getDrawable(LoginActivity.this, R.drawable.baseline_error_24), null);
+                etSenha.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 tvUsuarioSenhaInvalido.setText("Informe o usuário!");
                 tvUsuarioSenhaInvalido.setVisibility(View.VISIBLE);
             } else {
@@ -117,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("senha", etSenha.getText().toString());
                             editor.apply();
                         }
+
                         Intent intent = new Intent(LoginActivity.this, PaginaInicialActivity.class);
                         startActivity(intent);
                         finish();
@@ -147,7 +151,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
-
     }
     @Override
     public void finish() {
