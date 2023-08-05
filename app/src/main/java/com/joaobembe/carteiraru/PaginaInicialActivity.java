@@ -3,6 +3,7 @@ package com.joaobembe.carteiraru;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,14 +12,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.google.android.material.navigation.NavigationBarView;
 import com.joaobembe.carteiraru.controller.ControladorUsuario;
 import com.joaobembe.carteiraru.model.Usuario;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
+
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
+import okhttp3.OkHttpClient;
 
 
 public class PaginaInicialActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
@@ -50,29 +59,55 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         tvSituacao = findViewById(R.id.tvSituacao);
         tvRefeicoes = findViewById(R.id.tvRefeicoes);
         ivFotoPerfil = findViewById(R.id.ivFotoPerfil);
-        progressBar =findViewById(R.id.progressBar2);
+        progressBar = findViewById(R.id.progressBar2);
 
         Usuario usuario = new ControladorUsuario().obterUsuario();
         tvNomeUsuario.setText(formatarNome(usuario.getPerfil().getNomeCompleto()));
         tvTipoDeVinculo.setText(" (" + usuario.getPerfil().getTipoDeVinculo() + ")");
         tvCodRu.setText(usuario.getCarteira().getCodigo());
         tvSituacao.setText(usuario.getPerfil().getSituacaoDoVinculo());
+
+        TrustManager[] trustAllCertificates = new TrustManager[]{
+                new X509TrustManager() {
+                    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                    }
+
+                    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                    }
+
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return new X509Certificate[]{};
+                    }
+                }
+        };
+
+        OkHttpClient client = new OkHttpClient.Builder()
+                .sslSocketFactory(getUnsafeSSLSocketFactory(trustAllCertificates), (X509TrustManager) trustAllCertificates[0])
+                .hostnameVerifier((hostname, session) -> true)
+                .build();
+
+        Picasso picasso = new Picasso.Builder(this)
+                .downloader(new OkHttp3Downloader(client))
+                .build();
+
         if (usuario.getPerfil().getURLFoto() != null) {
-            Glide.with(this).load(usuario.getPerfil().getURLFoto()).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    ivFotoPerfil.setImageResource(R.drawable.baseline_account_circle_24);
-                    ivFotoPerfil.setVisibility(View.VISIBLE);
-                    return false;
-                }
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    progressBar.setVisibility(View.INVISIBLE);
-                    ivFotoPerfil.setVisibility(View.VISIBLE);
-                    return false;
-                }
-            }).into(ivFotoPerfil);
+            picasso
+                    .load(usuario.getPerfil().getURLFoto())
+                    .into(ivFotoPerfil, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            ivFotoPerfil.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            progressBar.setVisibility(View.INVISIBLE);
+                            ivFotoPerfil.setImageResource(R.drawable.baseline_account_circle_24);
+                            ivFotoPerfil.setVisibility(View.VISIBLE);
+                            e.printStackTrace();
+                        }
+                    });
         } else {
             progressBar.setVisibility(View.INVISIBLE);
             ivFotoPerfil.setImageResource(R.drawable.baseline_account_circle_24);
@@ -81,13 +116,27 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         if (usuario.getCarteira().getSaldo() > 1 || usuario.getCarteira().getSaldo() == 0) {
             tvRefeicoes.setText(
                     getResources().getString(R.string.tv_refeicoes_restantes_1) + usuario.getCarteira().getSaldo() + getResources().getString(R.string.tv_refeicoes_restantes_2)
-                    );
+            );
         } else {
             tvRefeicoes.setText(
                     getResources().getString(R.string.tv_refeicoes_restante_1) + usuario.getCarteira().getSaldo() + getResources().getString(R.string.tv_refeicoes_restante_2)
             );
         }
     }
+
+    private static SSLSocketFactory getUnsafeSSLSocketFactory(TrustManager[] trustAllCertificates) {
+        try {
+            // Obtém uma instância do contexto SSL que ignora a verificação de certificado
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, trustAllCertificates, new java.security.SecureRandom());
+
+            // Retorna o Socket Factory personalizado
+            return sslContext.getSocketFactory();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create unsafe SSL socket factory", e);
+        }
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.qrcode) {
@@ -113,6 +162,7 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         }
         return false;
     }
+
     public static String formatarNome(String nomeCompleto) {
         String[] palavras = nomeCompleto.split(" ");
         StringBuilder resultado = new StringBuilder();
