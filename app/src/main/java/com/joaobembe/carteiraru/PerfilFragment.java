@@ -1,12 +1,25 @@
 package com.joaobembe.carteiraru;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.joaobembe.carteiraru.controller.ControladorUsuario;
+import com.joaobembe.carteiraru.model.Transacao;
+import com.joaobembe.carteiraru.model.Usuario;
+
+import org.apache.commons.text.StringEscapeUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +72,39 @@ public class PerfilFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_perfil, container, false);
+        View rootview = inflater.inflate(R.layout.fragment_perfil, container, false);
+        RecyclerView recyclerView = rootview.findViewById(R.id.recyclerview);
+
+        Usuario usuario = new ControladorUsuario().obterUsuario();
+        List<Transacao> todasTransacoes = usuario.getHistoricoTransacoes().getTransacoes();
+        List<Item> items = new ArrayList<Item>();
+
+        for (Transacao transacao: todasTransacoes) {
+            if (StringEscapeUtils.unescapeHtml4(transacao.getNomeOperacao()).equals("Utilização do Cartão")) {
+                items.add(new Item(
+                        transacao.getData(),
+                        transacao.getHora(),
+                        StringEscapeUtils.unescapeHtml4(transacao.getNomeOperacao()),
+                        "-1",
+                        transacao.getSaldoAnterior(),
+                        transacao.getSaldoAtual()));
+            }
+            if (StringEscapeUtils.unescapeHtml4(transacao.getNomeOperacao()).equals("Compra de Créditos Presencial")) {
+                items.add(new Item(
+                        transacao.getData(),
+                        transacao.getHora(),
+                        StringEscapeUtils.unescapeHtml4(transacao.getNomeOperacao()),
+                        "+" + transacao.getCreditosGerados(),
+                        transacao.getSaldoAnterior(),
+                        transacao.getSaldoAtual()));
+            }
+
+        }
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(rootview.getContext()));
+        recyclerView.setAdapter(new MyAdapter(getContext(), items));
+
+
+        return rootview;
     }
 }
