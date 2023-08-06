@@ -120,7 +120,6 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("senha", etSenha.getText().toString());
                             editor.apply();
                         }
-
                         Intent intent = new Intent(LoginActivity.this, PaginaInicialActivity.class);
                         startActivity(intent);
                         finish();
