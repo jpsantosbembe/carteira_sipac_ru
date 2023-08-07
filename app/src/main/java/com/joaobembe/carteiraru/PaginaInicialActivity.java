@@ -1,11 +1,8 @@
 package com.joaobembe.carteiraru;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,17 +15,14 @@ import com.joaobembe.carteiraru.model.Usuario;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-
+import org.apache.commons.text.StringEscapeUtils;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
 import okhttp3.OkHttpClient;
-
 
 public class PaginaInicialActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
@@ -62,7 +56,7 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         progressBar = findViewById(R.id.progressBar2);
 
         Usuario usuario = new ControladorUsuario().obterUsuario();
-        tvNomeUsuario.setText(formatarNome(usuario.getPerfil().getNomeCompleto()));
+        tvNomeUsuario.setText(StringEscapeUtils.unescapeHtml4(formatarNome(usuario.getPerfil().getNomeCompleto())));
         tvTipoDeVinculo.setText(" (" + usuario.getPerfil().getTipoDeVinculo() + ")");
         tvCodRu.setText(usuario.getCarteira().getCodigo());
         tvSituacao.setText(usuario.getPerfil().getSituacaoDoVinculo());
@@ -71,10 +65,8 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
                 new X509TrustManager() {
                     public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                     }
-
                     public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                     }
-
                     public X509Certificate[] getAcceptedIssuers() {
                         return new X509Certificate[]{};
                     }
@@ -85,7 +77,6 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
                 .sslSocketFactory(getUnsafeSSLSocketFactory(trustAllCertificates), (X509TrustManager) trustAllCertificates[0])
                 .hostnameVerifier((hostname, session) -> true)
                 .build();
-
         Picasso picasso = new Picasso.Builder(this)
                 .downloader(new OkHttp3Downloader(client))
                 .build();
@@ -99,7 +90,6 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
                             progressBar.setVisibility(View.INVISIBLE);
                             ivFotoPerfil.setVisibility(View.VISIBLE);
                         }
-
                         @Override
                         public void onError(Exception e) {
                             progressBar.setVisibility(View.INVISIBLE);
@@ -123,20 +113,15 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
             );
         }
     }
-
     private static SSLSocketFactory getUnsafeSSLSocketFactory(TrustManager[] trustAllCertificates) {
         try {
-            // Obtém uma instância do contexto SSL que ignora a verificação de certificado
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, trustAllCertificates, new java.security.SecureRandom());
-
-            // Retorna o Socket Factory personalizado
             return sslContext.getSocketFactory();
         } catch (Exception e) {
             throw new RuntimeException("Failed to create unsafe SSL socket factory", e);
         }
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.qrcode) {
@@ -162,7 +147,6 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         }
         return false;
     }
-
     public static String formatarNome(String nomeCompleto) {
         String[] palavras = nomeCompleto.split(" ");
         StringBuilder resultado = new StringBuilder();

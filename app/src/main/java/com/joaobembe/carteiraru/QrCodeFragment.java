@@ -2,23 +2,18 @@ package com.joaobembe.carteiraru;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.joaobembe.carteiraru.controller.ControladorUsuario;
 import com.joaobembe.carteiraru.model.Usuario;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
-
-import org.jetbrains.annotations.Contract;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,8 +72,17 @@ public class QrCodeFragment extends Fragment {
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = multiFormatWriter.encode(usuario.getCarteira().getStrQRCode(), BarcodeFormat.QR_CODE, 400, 400);
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            int blackColor = ContextCompat.getColor(getContext(), R.color.pixel_color_qrcode);
+            int yellowColor = ContextCompat.getColor(getContext(), R.color.fundo_color_qrcode);
+
+            Bitmap bitmap = Bitmap.createBitmap(bitMatrix.getWidth(), bitMatrix.getHeight(), Bitmap.Config.ARGB_8888);
+            for (int x = 0; x < bitMatrix.getWidth(); x++) {
+                for (int y = 0; y < bitMatrix.getHeight(); y++) {
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? blackColor : yellowColor);
+                }
+            }
+            //BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            //Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             imageView.setImageBitmap(bitmap);
 
         } catch (WriterException e) {

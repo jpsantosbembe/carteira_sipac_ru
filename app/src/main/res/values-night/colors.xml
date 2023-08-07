@@ -7,6 +7,10 @@
     <color name="logo_cacc_backcolor">#FFFFFF</color>
     <color name="botao_cor">#1E293B</color>
     <color name="texto_cor">#FFFFFF</color>
+    <color name="pixel_color_qrcode">#FFFFFF</color>
+    <color name="fundo_color_qrcode">#1c1b20</color>
+
+
 
 
 </resources>
