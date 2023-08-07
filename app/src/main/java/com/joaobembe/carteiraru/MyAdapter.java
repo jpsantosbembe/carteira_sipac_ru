@@ -31,12 +31,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         if (items.get(position).getOperacao().equals("Utilização do Cartão")) {
-            holder.tvOperacao.setTextColor(Color.RED);
-            holder.tvQtdeOp.setTextColor(Color.RED);
+            holder.tvOperacao.setTextColor(Color.parseColor("#F44336"));
+            holder.tvQtdeOp.setTextColor(Color.parseColor("#F44336"));
         }
         if (items.get(position).getOperacao().equals("Compra de Créditos Presencial")) {
-            holder.tvOperacao.setTextColor(Color.GREEN);
-            holder.tvQtdeOp.setTextColor(Color.GREEN);
+            holder.tvOperacao.setTextColor(Color.parseColor("#4CAF50"));
+            holder.tvQtdeOp.setTextColor(Color.parseColor("#4CAF50"));
         }
 
         holder.tvData.setText(items.get(position).getData());

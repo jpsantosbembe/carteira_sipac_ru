@@ -4,7 +4,17 @@
         <!-- Customize your dark theme here. -->
         <item name="colorPrimary">@color/botao_cor</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/botao_cor</item>
 
+        <!-- cor do icone da botton navigation-->
+        <item name="colorOnSecondaryContainer">#ffe6e1e5</item>
+
+        <!-- cor do texto na botton navigationview -->
+        <item name="colorOnSurface">#ffe6e1e5</item>
+        <!-- cor do texto e icone na botton navigationview em desfoco-->
+        <item name="colorOnSurfaceVariant">#ffe6e1e5</item>
+
+        <item name="colorSurface">@color/fundo_color_qrcode</item>
 
     </style>
 </resources>

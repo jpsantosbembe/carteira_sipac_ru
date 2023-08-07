@@ -3,6 +3,17 @@
     <style name="Base.Theme.CarteiraRU" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/texto_cor</item>
+        <item name="colorSecondaryContainer">@color/texto_cor</item>
+
+        <!-- cor do icone da botton navigation-->
+        <item name="colorOnSecondaryContainer">@color/white</item>
+        <!-- cor do texto na botton navigationview -->
+        <item name="colorOnSurface">@color/texto_cor</item>
+        <!-- cor do texto e icone na botton navigationview em desfoco-->
+        <item name="colorOnSurfaceVariant">@color/texto_cor</item>
+
+        <item name="colorSurface">@color/white</item>
+
 
     </style>
 
