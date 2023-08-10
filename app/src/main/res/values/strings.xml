@@ -15,6 +15,9 @@
     <!-- Textos da Pagina Inicial -->
     <string name="descricao_tv_foto_perfil">Foto de perfil</string>
     <string name="tv_usuario_pi">Nome do usuario</string>
+    <string name="tv_matricula">Matrícula:\u00A0</string>
+    <string name="tv_matricula_1">Matrícula do aluno</string>
+
     <string name="tv_tipo_vinculo">Vinvulo</string>
     <string name="tv_codigo_ru">Código RU:\u00A0</string>
     <string name="tv_codigo_ru_1">Código do RU</string>

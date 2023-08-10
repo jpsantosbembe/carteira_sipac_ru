@@ -19,6 +19,8 @@ public class Login{
 
         String nomeCompleto;
         nomeCompleto = AnalisadorRegex.localizarOcorrencia(ColecaoRegex.NOME_COMPLETO, strResponseBody1);
+        String matricula;
+        matricula = AnalisadorRegex.localizarOcorrencia(ColecaoRegex.MATRICULA, strResponseBody2).replace(" ", "");
         String codigo;
         codigo = AnalisadorRegex.localizarOcorrencia(ColecaoRegex.CODIGO, strResponseBody1);
         String situacaoDoVinculo;
@@ -34,10 +36,9 @@ public class Login{
         HistoricoTransacoes historico;
         historico = AnalisadorRegex.localizarTransacoes(strResponseBody1);
 
-        Perfil perfil = new Perfil(nomeCompleto, tipoDeVinculo,situacaoDoVinculo, URLPerfil);
 
         new ControladorUsuario().criarNovoUsuario(
-                new Perfil(nomeCompleto, tipoDeVinculo,situacaoDoVinculo, URLPerfil),
+                new Perfil(nomeCompleto, tipoDeVinculo, matricula, situacaoDoVinculo, URLPerfil),
                 new Carteira(codigo, saldo, strQRCode),
                 new Credenciais(credenciais.getUsuario(), credenciais.getSenha()),
                 historico
