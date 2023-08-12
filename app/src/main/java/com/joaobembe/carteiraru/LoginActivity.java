@@ -16,7 +16,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.joaobembe.carteiraru.controller.ControladorUsuario;
 import com.joaobembe.carteiraru.model.Credenciais;
+import com.joaobembe.carteiraru.model.Usuario;
 import com.joaobembe.carteiraru.util.Login;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -92,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                 ExecutorService service = Executors.newSingleThreadExecutor();
                 service.execute(() -> {
                     try {
+
                         runOnUiThread(() -> {
                             etSenha.setEnabled(false);
                             etUsuario.setEnabled(false);
@@ -118,6 +122,15 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPreferences1.edit();
                             editor.putString("usuario", etUsuario.getText().toString());
                             editor.putString("senha", etSenha.getText().toString());
+                            Usuario usuario = new ControladorUsuario().obterUsuario();
+                            editor.putString("nome", usuario.getPerfil().getNomeCompleto());
+                            editor.putString("matricula", usuario.getPerfil().getMatricula());
+                            editor.putString("situacao", usuario.getPerfil().getSituacaoDoVinculo());
+                            editor.putString("tipoDeVinculo", usuario.getPerfil().getTipoDeVinculo());
+                            editor.putString("urlFotoPerfil", usuario.getPerfil().getURLFoto());
+                            editor.putString("codigoRu", usuario.getCarteira().getCodigo());
+                            editor.putString("strQRCode", usuario.getCarteira().getStrQRCode());
+                            editor.putString("saldo", String.valueOf(usuario.getCarteira().getSaldo()));
                             editor.apply();
                         }
                         Intent intent = new Intent(LoginActivity.this, PaginaInicialActivity.class);

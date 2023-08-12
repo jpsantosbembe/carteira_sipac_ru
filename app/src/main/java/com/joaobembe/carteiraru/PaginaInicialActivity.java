@@ -3,7 +3,12 @@ package com.joaobembe.carteiraru;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKeys;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,6 +16,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -18,8 +24,15 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.navigation.NavigationBarView;
 import com.joaobembe.carteiraru.controller.ControladorUsuario;
+import com.joaobembe.carteiraru.model.Carteira;
+import com.joaobembe.carteiraru.model.Credenciais;
+import com.joaobembe.carteiraru.model.Perfil;
 import com.joaobembe.carteiraru.model.Usuario;
+
 import org.apache.commons.text.StringEscapeUtils;
+
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 
 public class PaginaInicialActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
@@ -35,6 +48,7 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
     TextView tvRefeicoes;
     ImageView ivFotoPerfil;
     ProgressBar progressBar;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -53,6 +67,48 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         tvRefeicoes = findViewById(R.id.tvRefeicoes);
         ivFotoPerfil = findViewById(R.id.ivFotoPerfil);
         progressBar = findViewById(R.id.progressBar2);
+        swipeRefreshLayout = findViewById(R.id.srvPaginaInicial);
+
+        String masterKeyAlias;
+        try {
+            masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
+        } catch (GeneralSecurityException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SharedPreferences sharedPreferences;
+        try {
+            sharedPreferences = EncryptedSharedPreferences.create(
+                    "file",
+                    masterKeyAlias,
+                    this,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+        } catch (GeneralSecurityException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Perfil perfil = new Perfil(
+                sharedPreferences.getString("nome", ""),
+                sharedPreferences.getString("tipoDeVinculo", ""),
+                sharedPreferences.getString("matricula", ""),
+                sharedPreferences.getString("situacao", ""),
+                sharedPreferences.getString("urlFotoPerfil", "")
+        );
+        Carteira carteira = new Carteira(
+                sharedPreferences.getString("codigoRu", ""),
+                Integer.parseInt(sharedPreferences.getString("saldo", "")),
+                sharedPreferences.getString("strQRCode", "")
+        );
+        Credenciais credenciais = new Credenciais(
+                sharedPreferences.getString("usuario", ""),
+                sharedPreferences.getString("senha", "")
+        );
+
+        new ControladorUsuario().criarNovoUsuario(perfil, carteira, credenciais, null);
+
 
         Usuario usuario = new ControladorUsuario().obterUsuario();
         tvNomeUsuario.setText(StringEscapeUtils.unescapeHtml4(formatarNome(usuario.getPerfil().getNomeCompleto())));
@@ -90,6 +146,13 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
                     getResources().getString(R.string.tv_refeicoes_restante_1) + usuario.getCarteira().getSaldo() + getResources().getString(R.string.tv_refeicoes_restante_2)
             );
         }
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -117,13 +180,19 @@ public class PaginaInicialActivity extends AppCompatActivity implements Navigati
         }
         return false;
     }
+
     public static String formatarNome(String nomeCompleto) {
         String[] palavras = nomeCompleto.split(" ");
         StringBuilder resultado = new StringBuilder();
-        for (String palavra : palavras) {
-            String palavraFormatada = palavra.substring(0, 1).toUpperCase() + palavra.substring(1).toLowerCase();
-            resultado.append(palavraFormatada).append(" ");
+        if (palavras.length > 0) {
+            String primeiroNome = palavras[0].substring(0, 1).toUpperCase() + palavras[0].substring(1).toLowerCase();
+            resultado.append(primeiroNome).append(" ");
         }
+        if (palavras.length > 1) {
+            String ultimoNome = palavras[palavras.length - 1].substring(0, 1).toUpperCase() + palavras[palavras.length - 1].substring(1).toLowerCase();
+            resultado.append(ultimoNome);
+        }
+
         return resultado.toString().trim();
     }
 
